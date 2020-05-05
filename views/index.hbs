@@ -1,0 +1,144 @@
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link type="text/css" rel="stylesheet" href="./stylesheets/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="./stylesheets/bootstrap-responsive.css">
+    <link type="text/css" rel="stylesheet" href="./stylesheets/main.css">
+    <script src="./javascripts/jquery-1.9.1.min.js.download"></script>
+    <script src="./javascripts/bootstrap.min.js.download"></script>
+    <script src="./javascripts/jquery.number.js.download"></script>
+
+    <style>
+        body {
+            padding: 0 0 0 0;
+            margin: 0 0 0 0;
+        }
+    </style>
+    <title>Thanh toán đơn hàng qua Ví Bảo Kim</title>
+</head>
+
+<body>
+    <div id="wrapper">
+        <!-- nav -->
+        <div class="nav">
+            <div class="nav_title">Thanh toán đơn hàng qua Bảo Kim</div>
+        </div>
+        <!--/ end nav -->
+
+        <!-- payment -->
+        <div class="payment_list">
+            <div id="select_payment">
+                <form method="post" action="http://demo.baokim.vn/payment" id="form-action">
+                    <input type="hidden" name="_token" value="4ASAF4D2G74U04t1hEMjCn93GwZ72nJGOZk8IKXH">
+                    <div class="row-fluid customer_info ">
+                        <div class="info">
+                            <span class="title">Thông tin đơn hàng
+                                <img src="images/dog.jpg" border="0"
+                                    style="vertical-align: bottom; margin-left: 5px;" />
+                            </span>
+                            <dl class="dl-horizontal">
+                                <dt>Mã đơn hàng</dt>
+                                <dd><input type="text" name="mrc_order_id" value="order_bkim1588636849" readonly="">
+                                </dd>
+                                <dt>Mô tả</dt>
+                                <dd><input type="text" name="description" value="My cute dog" readonly=""></dd>
+                                <dt>Email khách hàng:</dt>
+                                <dd><input type="text" name="customer_email" value="customer@example.com"></dd>
+                                <dt>SĐT khách hàng:</dt>
+                                <dd><input type="text" name="customer_phone" value="0911111000"></dd>
+                                <dt>Số tiền thanh toán:</dt>
+                                <dd><input id="total_amount" type="text" name="total_amount" required=""></dd>
+                            </dl>
+                        </div>
+                    </div>
+
+                    {{!-- <div class="row-fluid method" id="4">
+                    <div class="icon"><img src="./bkim/sercurity.png" border="0"></div>
+                    <div class="info">
+                        <span class="title">Sử dụng ví Bảo Kim</span>
+                        <span class="desc">Thanh toán bằng ví Bảo Kim (Baokim.vn)</span>
+                    </div>
+                    <div class="check_box"></div>
+                </div> --}}
+
+                    <div class="row-fluid method" id="297">
+                        <div class="icon"><img src="./images/sercurity.png" border="0"></div>
+                        <div class="info">
+                            <span class="title">Sử dụng QR code</span>
+                            <span class="desc">Thanh toán bằng quẹt mã QR code</span>
+                        </div>
+                        <div class="check_box"></div>
+                    </div>
+                    <input type="hidden" name="bank_payment_method_id" id="bank_payment_method_id" value="">
+                    <div class="submit">
+                        <input type="submit" class="btn btn-success pm_submit" name="submit111" value="Thanh toán">
+                    </div>
+                </form>
+            </div>
+
+        </div>
+        <!--/ end payment -->
+    </div>
+    <script>
+        $("#total_amount").number(true, 0, ',', '.');
+        $(function () {
+            $('.method').click(function () {
+                $(this).siblings().children().find('img').removeClass('img-active');
+                $('.method').removeClass('selected');
+                $('.check_box').removeClass('checked_box');
+                $(this).addClass('selected');
+                $('.selected .check_box').addClass('checked_box');
+                var method = $(this).attr('id');
+                if (method != 0) {
+
+                    if (method == 297) {
+                        $('#bank_payment_method_id').val(method);
+                    }
+
+                    //$('.mode').css('display','block');
+                    // $('.info1').slideDown();
+                    $('.selected img').click(function () {
+                        $('.method img').removeClass('img-active');
+                        $(this).addClass('img-active');
+                        var id = $(this).attr('id');
+                        $('#bank_payment_method_id').val(id);
+                    });
+                }
+                else {
+                    //$('.mode').css('display','none');
+                    // $('.info1').slideUp('slow');
+                    $('.method img').removeClass('img-active');
+                }
+            });
+
+            $('.input-mode').click(function () {
+                var a = $(this).val();
+                if (a == 2) {
+                    $('#daykeep').css('display', 'block');
+                }
+                if (a == 1) {
+                    $('#daykeep').css('display', 'none');
+                }
+
+            });
+        });
+    </script>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>
